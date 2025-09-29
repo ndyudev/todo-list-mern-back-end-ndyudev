@@ -3,6 +3,7 @@ import tasksRouters from "./routers/tasksRouters.js";
 import { connectDB } from "./config/database.js";
 import dotenv from "dotenv";
 import cors from "cors";
+import path from "path";
 
 dotenv.config();
 
