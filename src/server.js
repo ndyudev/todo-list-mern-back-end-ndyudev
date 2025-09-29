@@ -13,26 +13,16 @@ const app = express();
 // middlewares
 app.use(express.json());
 
-// CORS: cho phép localhost, domain FE production và preview *.vercel.app
-const staticAllowedOrigins = [
-  "http://localhost:5173",
-  process.env.CORS_ORIGIN,
-].filter(Boolean);
 
+// deploy 
 app.use(
   cors({
-    origin: (origin, cb) => {
-      if (!origin) return cb(null, true); // cho CLI tools / server-to-server
-      const isVercelPreview = /\.vercel\.app$/.test(origin);
-      if (staticAllowedOrigins.includes(origin) || isVercelPreview) {
-        return cb(null, true);
-      }
-      return cb(new Error("Not allowed by CORS"));
-    },
+    origin: [ "http://localhost:5173", process.env.CORS_ORIGIN ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 
 app.use("/api/tasks", tasksRouters);
 
