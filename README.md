@@ -1,4 +1,4 @@
-<h1 align="center">TodoX API – Backend (Node/Express + MongoDB)</h1>
+<h1 align="center">Todo List API – Backend (Node/Express + MongoDB)</h1>
 
 <p align="center">
   <img alt="Node" src="https://img.shields.io/badge/Node-18+-339933?logo=node.js&logoColor=white" />
