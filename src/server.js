@@ -14,10 +14,20 @@ const app = express();
 app.use(express.json());
 
 
-// deploy 
+const staticAllowedOrigins = [
+  "http://localhost:5173",
+  process.env.CORS_ORIGIN,
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: [ "http://localhost:5173", process.env.CORS_ORIGIN ],
+    origin: (origin, cb) => {
+      if (!origin) return cb(null, true);
+      const isVercelPreview = /\.vercel\.app$/.test(origin);
+      if (staticAllowedOrigins.includes(origin) || isVercelPreview)
+        return cb(null, true);
+      cb(new Error("Not allowed by CORS"));
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
